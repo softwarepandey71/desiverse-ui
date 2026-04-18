@@ -1,5 +1,60 @@
-<a routerLink="/">Home</a>
-<a routerLink="/login">Login</a>
-<a routerLink="/register">Register</a>
-<a routerLink="/add-product">Add Product</a>
-<a routerLink="/admin">Admin</a>
+<nav class="bg-white shadow-md border-b">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between items-center h-16">
+
+      <!-- Logo -->
+      <a routerLink="/" class="text-2xl font-bold text-indigo-600">
+        DesiVerse
+      </a>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex gap-6 items-center">
+
+        <a routerLink="/" class="hover:text-indigo-600">Home</a>
+
+        <a *ngIf="!isLoggedIn" routerLink="/login" class="hover:text-indigo-600">Login</a>
+        <a *ngIf="!isLoggedIn" routerLink="/register" class="hover:text-indigo-600">Register</a>
+
+        <a *ngIf="role() === 'VENDOR'" routerLink="/add-product" class="hover:text-indigo-600">
+          Add Product
+        </a>
+
+        <a *ngIf="role() === 'ADMIN'" routerLink="/admin" class="hover:text-indigo-600">
+          Admin
+        </a>
+
+        <button *ngIf="isLoggedIn"
+                (click)="logout()"
+                class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">
+          Logout
+        </button>
+      </div>
+
+      <!-- Mobile Button -->
+      <button class="md:hidden" (click)="toggleMenu()">
+        ☰
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div *ngIf="menuOpen()" class="md:hidden px-4 pb-4 space-y-2">
+    <a routerLink="/" class="block">Home</a>
+    <a *ngIf="!isLoggedIn" routerLink="/login" class="block">Login</a>
+    <a *ngIf="!isLoggedIn" routerLink="/register" class="block">Register</a>
+
+    <a *ngIf="role() === 'VENDOR'" routerLink="/add-product" class="block">
+      Add Product
+    </a>
+
+    <a *ngIf="role() === 'ADMIN'" routerLink="/admin" class="block">
+      Admin
+    </a>
+
+    <button *ngIf="isLoggedIn"
+            (click)="logout()"
+            class="w-full bg-red-500 text-white py-2 rounded">
+      Logout
+    </button>
+  </div>
+</nav>
