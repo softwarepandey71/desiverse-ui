@@ -1,1 +1,73 @@
-<p>dashboard works!</p>
+<div class="p-6">
+    <div *ngIf="loading" class="grid grid-cols-4 gap-6">
+        <div *ngFor="let i of [1,2,3,4]" class="h-24 bg-gray-200 animate-pulse rounded-xl"></div>
+    </div>
+    <div *ngIf="!loading" class="grid grid-cols-4 gap-6">
+        <h1 class="text-2xl font-bold mb-6">Admin Dashboard</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            <!-- Users -->
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-gray-500">Total Users</p>
+                <h2 class="text-3xl font-bold">{{ stats.users }}</h2>
+            </div>
+
+            <!-- Products -->
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-gray-500">Total Products</p>
+                <h2 class="text-3xl font-bold">{{ stats.products }}</h2>
+            </div>
+
+            <!-- Approved -->
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-gray-500">Approved</p>
+                <h2 class="text-3xl font-bold text-green-600">
+                    {{ stats.approved }}
+                </h2>
+            </div>
+
+            <!-- Pending -->
+            <div class="bg-white rounded-2xl shadow p-5">
+                <p class="text-gray-500">Pending Approval</p>
+                <h2 class="text-3xl font-bold text-red-500">
+                    {{ stats.pending }}
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+
+  <div class="bg-white p-4 rounded-xl shadow">
+    <canvas id="barChart"></canvas>
+  </div>
+
+  <div class="bg-white p-4 rounded-xl shadow">
+    <canvas id="pieChart"></canvas>
+  </div>
+
+</div>
+
+        <!-- Recent Products -->
+<div class="mt-10 bg-white p-4 rounded-xl shadow">
+  <h2 class="font-bold mb-3">Recent Products</h2>
+
+  <div *ngFor="let p of recentProducts" class="flex justify-between border-b py-2">
+    <span>{{ p.name }}</span>
+    <span class="text-sm text-gray-500">₹{{ p.price }}</span>
+  </div>
+</div>
+
+<!-- Recent Users -->
+<div class="mt-10 bg-white p-4 rounded-xl shadow">
+  <h2 class="font-bold mb-3">Recent Users</h2>
+
+  <div *ngFor="let u of recentUsers" class="flex justify-between border-b py-2">
+    <span>{{ u.email }}</span>
+    <span class="text-sm text-gray-500">{{ u.role }}</span>
+  </div>
+</div>
+    </div>
+</div>

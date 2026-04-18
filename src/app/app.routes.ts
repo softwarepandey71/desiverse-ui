@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
 import { roleGuard } from './core/guards/role-guard';
+import { DashboardLayout } from './layouts/dashboard-layout/dashboard-layout';
+
 
 export const routes: Routes = [
 
@@ -28,7 +30,7 @@ export const routes: Routes = [
   {
     path: 'add-product',
     canActivate: [authGuard, roleGuard],
-    data: { role: 'VENDOR' },
+    data: { roles: ['VENDOR', 'ADMIN'] },
     loadComponent: () =>
       import('./features/product/product-add/product-add')
         .then(m => m.ProductAdd)
@@ -38,7 +40,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     canActivate: [authGuard, roleGuard],
-    data: { role: 'ADMIN' },
+    data: { roles: ['ADMIN'] },
     loadComponent: () =>
       import('./features/admin/dashboard/dashboard')
         .then(m => m.Dashboard)
@@ -46,11 +48,57 @@ export const routes: Routes = [
   {
     path: 'admin/approve',
     canActivate: [authGuard, roleGuard],
-    data: { role: 'ADMIN' },
+    data: { roles: ['ADMIN'] },
     loadComponent: () =>
       import('./features/admin/approve-products/approve-products')
         .then(m => m.ApproveProducts)
   },
+
+   // 🔥 DASHBOARD LAYOUT WRAPPER
+  {
+    path: '',
+    component: DashboardLayout,
+    canActivate: [authGuard],
+    children: [
+
+      {
+        path: 'add-product',
+        canActivate: [roleGuard],
+        data: { roles: ['VENDOR', 'ADMIN'] },
+        loadComponent: () =>
+          import('./features/product/product-add/product-add')
+            .then(m => m.ProductAdd)
+      },
+
+      {
+        path: 'admin',
+        canActivate: [roleGuard],
+        data: { roles: ['ADMIN'] },
+        loadComponent: () =>
+          import('./features/admin/dashboard/dashboard')
+            .then(m => m.Dashboard)
+      },
+
+      {
+        path: 'admin/approve',
+        canActivate: [roleGuard],
+        data: { roles: ['ADMIN'] },
+        loadComponent: () =>
+          import('./features/admin/approve-products/approve-products')
+            .then(m => m.ApproveProducts)
+      },
+      {
+        path: 'admin/orders',
+        canActivate: [authGuard, roleGuard],
+        data: { roles: ['ADMIN'] },
+        loadComponent: () =>
+          import('./features/admin/orders/admin-orders/admin-orders')
+            .then(m => m.AdminOrders)
+      }
+
+    ]
+  },
+  
 
   // ❌ Fallback
   {

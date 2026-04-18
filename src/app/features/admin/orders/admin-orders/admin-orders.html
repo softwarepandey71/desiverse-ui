@@ -1,0 +1,38 @@
+<div class="p-6">
+
+  <h1 class="text-2xl font-bold mb-4">Manage Orders</h1>
+
+  <div *ngFor="let o of orders"
+       class="border p-4 mb-3 rounded bg-white shadow">
+
+    <div class="flex justify-between mb-2">
+      <div>
+        <p><b>ID:</b> {{ o.id }}</p>
+        <p><b>Total:</b> ₹{{ o.total }}</p>
+      </div>
+
+      <div>
+        <p class="mb-1"><b>Status:</b> {{ o.status }}</p>
+
+        <select
+          (change)="updateStatus(o.id, $event.target.value)"
+          class="border p-1 rounded">
+
+          <option value="PLACED">PLACED</option>
+          <option value="SHIPPED">SHIPPED</option>
+          <option value="DELIVERED">DELIVERED</option>
+
+        </select>
+      </div>
+    </div>
+
+    <div *ngFor="let item of o.items"
+         class="border-t pt-2 text-sm">
+
+      {{ item.name }} (x{{ item.qty }}) - ₹{{ item.price }}
+
+    </div>
+
+  </div>
+
+</div>

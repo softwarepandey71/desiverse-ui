@@ -1,0 +1,13 @@
+<div class="p-6">
+
+  <h1 class="text-xl font-bold mb-4">My Orders</h1>
+
+  <div *ngFor="let o of orders"
+       class="border p-3 mb-3 rounded">
+
+    <p><b>Total:</b> ₹{{ o.total }}</p>
+    <p><b>Address:</b> {{ o.address }}</p>
+
+  </div>
+
+</div>
