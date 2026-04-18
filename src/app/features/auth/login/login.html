@@ -1,1 +1,20 @@
-<p>login works!</p>
+<div class="flex justify-center items-center h-screen bg-gray-100">
+  <div class="bg-white p-8 rounded-xl shadow-md w-96">
+
+    <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+
+    <input [(ngModel)]="email"
+           placeholder="Email"
+           class="w-full mb-3 p-2 border rounded" />
+
+    <input [(ngModel)]="password"
+           type="password"
+           placeholder="Password"
+           class="w-full mb-4 p-2 border rounded" />
+
+    <button (click)="login()"
+            class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700">
+      Login
+    </button>
+  </div>
+</div>

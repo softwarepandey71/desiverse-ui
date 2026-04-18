@@ -1,1 +1,27 @@
-<p>register works!</p>
+<div class="flex justify-center items-center h-screen bg-gray-100">
+  <div class="bg-white p-8 rounded-xl shadow-md w-96">
+
+    <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
+
+    <input [(ngModel)]="email"
+           placeholder="Email"
+           class="w-full mb-3 p-2 border rounded" />
+
+    <input [(ngModel)]="password"
+           type="password"
+           placeholder="Password"
+           class="w-full mb-3 p-2 border rounded" />
+
+    <select [(ngModel)]="role"
+            class="w-full mb-4 p-2 border rounded">
+      <option value="USER">User</option>
+      <option value="VENDOR">Vendor</option>
+      <option value="ADMIN">Admin</option>
+    </select>
+
+    <button (click)="register()"
+            class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+      Register
+    </button>
+  </div>
+</div>
