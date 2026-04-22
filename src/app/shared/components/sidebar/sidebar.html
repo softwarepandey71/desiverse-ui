@@ -1,0 +1,33 @@
+<div class="w-64 bg-gray-900 text-white h-full p-4">
+
+  <h2 class="text-xl font-bold mb-6">DesiVerse</h2>
+
+  <!-- Common -->
+  <a routerLink="/" class="block py-2 px-3 hover:bg-gray-700 rounded">
+    Home
+  </a>
+
+  <!-- USER -->
+  <a *ngIf="role === 'USER'" routerLink="/"
+     class="block py-2 px-3 hover:bg-gray-700 rounded">
+    Products
+  </a>
+
+  <!-- VENDOR -->
+  <a *ngIf="role === 'VENDOR'" routerLink="/add-product"
+     class="block py-2 px-3 hover:bg-gray-700 rounded">
+    Add Product
+  </a>
+
+  <!-- ADMIN -->
+  <a *ngIf="role === 'ADMIN'" routerLink="/admin"
+     class="block py-2 px-3 hover:bg-gray-700 rounded">
+    Dashboard
+  </a>
+
+  <a *ngIf="role === 'ADMIN'" routerLink="/admin/approve"
+     class="block py-2 px-3 hover:bg-gray-700 rounded">
+    Approve Products
+  </a>
+
+</div>

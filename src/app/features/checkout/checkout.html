@@ -1,0 +1,14 @@
+<div class="p-6">
+
+  <h1 class="text-xl font-bold mb-4">Checkout</h1>
+
+  <textarea [(ngModel)]="address"
+    placeholder="Enter address"
+    class="w-full border p-2 rounded mb-4"></textarea>
+
+  <button (click)="placeOrder()"
+    class="bg-green-600 text-white px-6 py-2 rounded">
+    Place Order
+  </button>
+
+</div>
