@@ -1,1 +1,55 @@
-<p>product-add works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()"
+      class="max-w-3xl mx-auto p-6 bg-white shadow rounded">
+
+  <h2 class="text-2xl font-bold mb-6">Add Product</h2>
+
+  <!-- Name -->
+  <input formControlName="name"
+    placeholder="Product Name"
+    class="w-full border p-2 mb-2 rounded" />
+
+  <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid"
+       class="text-red-500 text-sm mb-2">
+    Name is required
+  </div>
+
+  <!-- Description -->
+  <textarea formControlName="description"
+    placeholder="Description"
+    class="w-full border p-2 mb-3 rounded"></textarea>
+
+  <!-- Price -->
+  <input type="number" formControlName="price"
+    placeholder="Price"
+    class="w-full border p-2 mb-2 rounded" />
+
+  <div *ngIf="form.get('price')?.invalid && form.get('price')?.touched"
+       class="text-red-500 text-sm mb-2">
+    Price must be greater than 0
+  </div>
+
+  <!-- Category -->
+  <input formControlName="category"
+    placeholder="Category"
+    class="w-full border p-2 mb-2 rounded" />
+
+  <!-- Image -->
+  <input formControlName="imageUrl"
+    placeholder="Image URL"
+    class="w-full border p-2 mb-3 rounded" />
+
+  <!-- Preview -->
+  <img *ngIf="form.value.imageUrl"
+       [src]="form.value.imageUrl"
+       class="h-40 mb-4 border rounded"/>
+
+  <!-- Submit -->
+  <button type="submit"
+    [disabled]="loading"
+    class="bg-blue-600 text-white px-6 py-2 rounded w-full">
+
+    {{ loading ? 'Adding...' : 'Add Product' }}
+
+  </button>
+
+</form>

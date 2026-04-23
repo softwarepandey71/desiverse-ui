@@ -14,9 +14,7 @@
       <div>
         <p class="mb-1"><b>Status:</b> {{ o.status }}</p>
 
-        <select
-          (change)="updateStatus(o.id, $event.target.value)"
-          class="border p-1 rounded">
+        <select #statusSelect (change)="updateStatus(o.id, statusSelect.value)" class="border p-1 rounded">
 
           <option value="PLACED">PLACED</option>
           <option value="SHIPPED">SHIPPED</option>

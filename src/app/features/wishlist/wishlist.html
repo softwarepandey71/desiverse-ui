@@ -1,0 +1,22 @@
+<div class="p-6">
+
+  <h2 class="text-2xl font-bold mb-4">My Wishlist ❤️</h2>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+    <div *ngFor="let p of wishlistItems"
+         class="border p-3 rounded">
+
+      <img [src]="p.image" class="h-40 w-full object-cover" />
+
+      <h3>{{ p.name }}</h3>
+
+      <p class="text-red-500 font-bold">₹{{ p.price }}</p>
+
+      <button (click)="remove(p.id)">❌ Remove</button>
+
+    </div>
+
+  </div>
+
+</div>

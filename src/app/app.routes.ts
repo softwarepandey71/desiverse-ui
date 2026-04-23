@@ -3,10 +3,9 @@ import { authGuard } from './core/guards/auth-guard';
 import { roleGuard } from './core/guards/role-guard';
 import { DashboardLayout } from './layouts/dashboard-layout/dashboard-layout';
 
-
 export const routes: Routes = [
 
-  // 🔓 Public Routes
+  // 🔓 PUBLIC ROUTES
   {
     path: '',
     loadComponent: () =>
@@ -26,41 +25,14 @@ export const routes: Routes = [
         .then(m => m.Register)
   },
 
-  // 🛒 Vendor Routes
-  {
-    path: 'add-product',
-    canActivate: [authGuard, roleGuard],
-    data: { roles: ['VENDOR', 'ADMIN'] },
-    loadComponent: () =>
-      import('./features/product/product-add/product-add')
-        .then(m => m.ProductAdd)
-  },
-
-  // 🛠 Admin Routes
-  {
-    path: 'admin',
-    canActivate: [authGuard, roleGuard],
-    data: { roles: ['ADMIN'] },
-    loadComponent: () =>
-      import('./features/admin/dashboard/dashboard')
-        .then(m => m.Dashboard)
-  },
-  {
-    path: 'admin/approve',
-    canActivate: [authGuard, roleGuard],
-    data: { roles: ['ADMIN'] },
-    loadComponent: () =>
-      import('./features/admin/approve-products/approve-products')
-        .then(m => m.ApproveProducts)
-  },
-
-   // 🔥 DASHBOARD LAYOUT WRAPPER
+  // 🔐 PROTECTED ROUTES (WITH LAYOUT)
   {
     path: '',
     component: DashboardLayout,
     canActivate: [authGuard],
     children: [
 
+      // 🛒 Vendor
       {
         path: 'add-product',
         canActivate: [roleGuard],
@@ -70,6 +42,7 @@ export const routes: Routes = [
             .then(m => m.ProductAdd)
       },
 
+      // 🛠 Admin Dashboard
       {
         path: 'admin',
         canActivate: [roleGuard],
@@ -79,6 +52,7 @@ export const routes: Routes = [
             .then(m => m.Dashboard)
       },
 
+      // ✅ Approve Products
       {
         path: 'admin/approve',
         canActivate: [roleGuard],
@@ -87,10 +61,12 @@ export const routes: Routes = [
           import('./features/admin/approve-products/approve-products')
             .then(m => m.ApproveProducts)
       },
+
+      // 📦 Orders
       {
         path: 'admin/orders',
-        canActivate: [authGuard, roleGuard],
-        data: { roles: ['ADMIN'] },
+        canActivate: [roleGuard],
+        data: { roles: ['ADMIN', 'VENDOR'] },
         loadComponent: () =>
           import('./features/admin/orders/admin-orders/admin-orders')
             .then(m => m.AdminOrders)
@@ -98,9 +74,16 @@ export const routes: Routes = [
 
     ]
   },
-  
 
-  // ❌ Fallback
+  // 🛍 PRODUCT DETAIL (PUBLIC)
+  {
+    path: 'product/:id',
+    loadComponent: () =>
+      import('./features/product/product-detail/product-detail')
+        .then(m => m.ProductDetail)
+  },
+
+  // ❌ FALLBACK
   {
     path: '**',
     redirectTo: ''
