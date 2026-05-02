@@ -39,6 +39,7 @@
           </span>
 
         </div>
+        
 
         <!-- 🚪 Logout -->
         <button *ngIf="isLoggedIn"
@@ -68,6 +69,10 @@
     <!-- Vendor/Admin -->
     <a *ngIf="role() === 'VENDOR'" routerLink="/add-product" class="block">
       Add Product
+    </a>
+
+    <a *ngIf="role() === 'VENDOR'" routerLink="/my-products">
+      My Products
     </a>
 
     <a *ngIf="role() === 'ADMIN'" routerLink="/admin" class="block">

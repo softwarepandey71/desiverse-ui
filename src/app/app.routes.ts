@@ -53,6 +53,14 @@ export const routes: Routes = [
           import('./features/product/product-add/product-add')
             .then(m => m.ProductAdd)
       },
+      {
+        path: 'my-products',
+        canActivate: [roleGuard],
+        data: { roles: ['VENDOR'] },
+        loadComponent: () =>
+          import('./features/product/vendor-products/vendor-products')
+            .then(m => m.VendorProducts)
+      },
 
       // 🛠 Admin Dashboard
       {

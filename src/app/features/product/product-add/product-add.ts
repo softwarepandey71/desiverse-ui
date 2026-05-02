@@ -13,6 +13,7 @@ export class ProductAdd {
 
   form: FormGroup;
   loading = false;
+  product: any = {};
 
   constructor(
     private fb: FormBuilder,
@@ -40,7 +41,7 @@ export class ProductAdd {
       .subscribe({
         next: () => {
           alert('Product Added ✅');
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/my-products');
         },
         error: () => {
           alert('Failed ❌');

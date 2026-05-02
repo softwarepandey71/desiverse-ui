@@ -1,0 +1,47 @@
+<ng-container *ngIf="products$ | async as products">
+
+  <h2 class="text-2xl font-bold mb-6">My Products 🛍</h2>
+
+  <!-- EMPTY STATE -->
+  <div *ngIf="!products?.length" class="text-gray-500 text-center mt-10">
+    No products added yet 😢
+  </div>
+
+  <!-- GRID -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4" *ngIf="products && products.length > 0">
+
+    <div *ngFor="let p of products"
+         class="border rounded-lg p-3 shadow hover:shadow-lg transition">
+
+      <!-- IMAGE -->
+      <img [src]="p.imageUrl || 'https://via.placeholder.com/150'"
+           class="h-40 w-full object-cover rounded mb-2" />
+
+      <!-- NAME -->
+      <h3 class="font-semibold text-sm truncate">
+        {{ p.name }}
+      </h3>
+
+      <!-- PRICE -->
+      <p class="text-red-500 font-bold">
+        ₹{{ p.price }}
+      </p>
+
+      <!-- ACTIONS -->
+      <div class="flex justify-between mt-2 text-sm">
+
+        <button class="text-blue-500 hover:underline">
+          Edit
+        </button>
+
+        <button class="text-red-500 hover:underline">
+          Delete
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</ng-container>
