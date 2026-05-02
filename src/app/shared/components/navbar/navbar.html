@@ -12,9 +12,11 @@
 
         <a routerLink="/" class="hover:text-indigo-600">Home</a>
 
+        <!-- 🔓 Guest -->
         <a *ngIf="!isLoggedIn" routerLink="/login" class="hover:text-indigo-600">Login</a>
         <a *ngIf="!isLoggedIn" routerLink="/register" class="hover:text-indigo-600">Register</a>
 
+        <!-- 🔐 Vendor/Admin -->
         <a *ngIf="role() === 'VENDOR'" routerLink="/add-product" class="hover:text-indigo-600">
           Add Product
         </a>
@@ -23,11 +25,28 @@
           Admin
         </a>
 
+        <!-- 🛒 CART (ONLY WHEN LOGGED IN) -->
+        <div *ngIf="isLoggedIn"
+             class="relative cursor-pointer"
+             (click)="openCart()">
+
+          <span class="text-2xl">🛒</span>
+
+          <!-- 🔴 Badge -->
+          <span *ngIf="cartCount > 0"
+                class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+            {{ cartCount }}
+          </span>
+
+        </div>
+
+        <!-- 🚪 Logout -->
         <button *ngIf="isLoggedIn"
-                (click)="logout()"
-                class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">
+          (click)="logout()"
+          class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">
           Logout
         </button>
+
       </div>
 
       <!-- Mobile Button -->
@@ -37,12 +56,16 @@
     </div>
   </div>
 
-  <!-- Mobile Menu -->
+  <!-- 📱 Mobile Menu -->
   <div *ngIf="menuOpen()" class="md:hidden px-4 pb-4 space-y-2">
+
     <a routerLink="/" class="block">Home</a>
+
+    <!-- Guest -->
     <a *ngIf="!isLoggedIn" routerLink="/login" class="block">Login</a>
     <a *ngIf="!isLoggedIn" routerLink="/register" class="block">Register</a>
 
+    <!-- Vendor/Admin -->
     <a *ngIf="role() === 'VENDOR'" routerLink="/add-product" class="block">
       Add Product
     </a>
@@ -51,10 +74,25 @@
       Admin
     </a>
 
+    <!-- 🛒 Cart Mobile -->
+    <div *ngIf="isLoggedIn"
+         (click)="openCart()"
+         class="flex items-center gap-2 cursor-pointer">
+
+      🛒 Cart
+      <span *ngIf="cartCount > 0"
+            class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">
+        {{ cartCount }}
+      </span>
+
+    </div>
+
+    <!-- Logout -->
     <button *ngIf="isLoggedIn"
             (click)="logout()"
             class="w-full bg-red-500 text-white py-2 rounded">
       Logout
     </button>
+
   </div>
 </nav>

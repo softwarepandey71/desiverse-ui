@@ -12,20 +12,45 @@ export class Cart {
 
   items: any[] = [];
 
-  constructor(private cart: CartService, private router: Router) {
-    this.items = this.cart.getCart();
-  }
+  constructor(private cartService: CartService,private router: Router) {}
 
-  remove(id: number) {
-    this.cart.remove(id);
-    this.items = this.cart.getCart();
-  }
+ngOnInit() {
+  this.loadCart();
+}
 
-  total() {
-    return this.cart.total();
-  }
+loadCart() {
+  this.cartService.getCart().subscribe(res => {
+    console.log("result ::",res);
+    this.items = res;
+    // 🔥 update header count
+      this.cartService.updateCartCount(res.length);
+  });
+}
 
-  checkout() {
-    this.router.navigateByUrl('/checkout');
+remove(id: number) {
+  this.cartService.removeFromCart(id).subscribe(() => {
+    this.loadCart();
+  });
+}
+
+increase(item: any) {
+  item.quantity = (item.quantity || 1) + 1;
+}
+
+decrease(item: any) {
+  if ((item.quantity || 1) > 1) {
+    item.quantity--;
   }
+}
+
+total() {
+  return this.items.reduce((sum, i) =>
+    sum + ((i.price || 0) * (i.quantity || 1)), 0);
+}
+
+checkout() {
+  this.router.navigate(['/checkout'], {
+    state: { total: this.total() }
+  });
+}
 }

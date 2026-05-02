@@ -30,7 +30,7 @@ export class Auth {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem('token');
   }
 
   isLoggedIn(): boolean {

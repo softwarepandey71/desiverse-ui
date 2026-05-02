@@ -1,14 +1,98 @@
-<div class="p-6">
+<div class="p-8 bg-gray-100 min-h-screen">
 
-  <h1 class="text-xl font-bold mb-4">Checkout</h1>
+  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
 
-  <textarea [(ngModel)]="address"
-    placeholder="Enter address"
-    class="w-full border p-2 rounded mb-4"></textarea>
+    <!-- LEFT SECTION -->
+    <div class="md:col-span-2 space-y-6">
 
-  <button (click)="placeOrder()"
-    class="bg-green-600 text-white px-6 py-2 rounded">
-    Place Order
-  </button>
+      <h1 class="text-2xl font-bold">Checkout</h1>
+
+      <!-- ADDRESS CARD -->
+      <div class="bg-white p-5 rounded-xl shadow-sm border">
+
+        <h2 class="font-semibold mb-3">Delivery Address</h2>
+
+        <textarea [(ngModel)]="address"
+          placeholder="House no, street..."
+          class="w-full border rounded p-2 mb-3 focus:outline-none focus:ring-2 focus:ring-black"></textarea>
+
+        <input [(ngModel)]="city"
+          placeholder="City"
+          class="w-full border rounded p-2 mb-3 focus:outline-none focus:ring-2 focus:ring-black" />
+
+        <input [(ngModel)]="pincode"
+          placeholder="Pincode"
+          class="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-black" />
+
+      </div>
+
+      <!-- ORDER ITEMS -->
+      <div class="bg-white p-5 rounded-xl shadow-sm border">
+
+        <h2 class="font-semibold mb-3">Order Items</h2>
+
+        <div *ngIf="items.length === 0" class="text-gray-400 text-sm">
+          No items in cart
+        </div>
+
+        <div *ngFor="let item of items"
+             class="flex gap-4 border-b py-3">
+
+          <img [src]="item.image || 'https://picsum.photos/100'"
+               class="w-16 h-16 rounded object-cover border" />
+
+          <div class="flex-1">
+            <p class="text-sm font-medium line-clamp-2">
+              {{ item.name }}
+            </p>
+
+            <p class="text-red-600 font-bold">
+              ₹{{ item.price }}
+            </p>
+
+            <p class="text-xs text-gray-500">
+              Qty: {{ item.quantity || 1 }}
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- RIGHT SECTION (SUMMARY) -->
+    <div class="bg-white p-5 rounded-xl shadow-sm border h-fit sticky top-20">
+
+      <h2 class="text-lg font-semibold mb-4">Order Summary</h2>
+
+      <div class="flex justify-between text-sm mb-2">
+        <span>Items</span>
+        <span>{{ items.length }}</span>
+      </div>
+
+      <div class="flex justify-between text-sm mb-2">
+        <span>Subtotal</span>
+        <span>₹{{ total }}</span>
+      </div>
+
+      <div class="flex justify-between text-sm mb-2">
+        <span>Delivery</span>
+        <span class="text-green-600">FREE</span>
+      </div>
+
+      <div class="border-t mt-3 pt-3 flex justify-between font-bold text-lg">
+        <span>Total</span>
+        <span>₹{{ total }}</span>
+      </div>
+
+      <button (click)="placeOrder()"
+        class="mt-5 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+        Place Order
+      </button>
+
+    </div>
+
+  </div>
 
 </div>

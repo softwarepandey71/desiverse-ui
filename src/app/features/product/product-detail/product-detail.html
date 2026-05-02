@@ -64,7 +64,7 @@
     <div class="mt-6 flex gap-4">
 
       <button
-        (click)="addToCart()"
+        (click)="addToCart(product.id)"
         class="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-2 rounded font-semibold">
         Add to Cart
       </button>
@@ -77,5 +77,11 @@
     </div>
 
   </div>
+  <div *ngIf="showToast"
+     class="fixed bottom-5 right-5 bg-black text-white px-4 py-2 rounded shadow">
+  Item added to cart 🛒
+</div>
 
 </div>
+
+

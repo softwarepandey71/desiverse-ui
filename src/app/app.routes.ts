@@ -24,6 +24,18 @@ export const routes: Routes = [
       import('./features/auth/register/register')
         .then(m => m.Register)
   },
+   {
+    path: 'checkout',
+    loadComponent: () =>
+      import('./features/checkout/checkout')
+        .then(m => m.Checkout)
+  },
+  {
+    path: 'cart',
+    loadComponent: () =>
+      import('./features/cart/cart')
+        .then(m => m.Cart)
+  },
 
   // 🔐 PROTECTED ROUTES (WITH LAYOUT)
   {

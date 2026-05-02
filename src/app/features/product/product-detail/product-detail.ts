@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { CartService } from '../../../core/services/cart';
 
 @Component({
   selector: 'app-product-detail',
@@ -20,8 +21,9 @@ export class ProductDetail implements OnInit {
   zoomStyle: any = {};
   relatedProducts = [];
   private baseUrl = `${environment.apiUrl}/admin`;
+  showToast: boolean = false;
 
-  constructor(private route: ActivatedRoute,private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private cartService: CartService) { }
 
   ngOnInit() {
     this.productId = Number(this.route.snapshot.paramMap.get('id'));
@@ -70,11 +72,22 @@ export class ProductDetail implements OnInit {
   }
 
   getRelatedProducts(category: string) {
-  return this.http.get(`${this.baseUrl}/api/products/related?category=${category}`);
-}
-
-  addToCart() {
-    console.log('Added to cart:', this.product);
+    return this.http.get(`${this.baseUrl}/api/products/related?category=${category}`);
   }
-  
+
+  addToCart(productId: number) {
+    this.cartService.addToCart(productId).subscribe(() => {
+      this.showToast = true;
+      // 🔥 reload cart count
+      this.cartService.getCart().subscribe(res => {
+        this.cartService.updateCartCount(res.length);
+      });
+
+      setTimeout(() => {
+        this.showToast = false;
+      }, 2000);
+    });
+  }
+
+
 }

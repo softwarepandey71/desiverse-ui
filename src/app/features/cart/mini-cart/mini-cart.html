@@ -1,0 +1,65 @@
+<!-- OVERLAY -->
+<div *ngIf="isOpen"
+     class="fixed inset-0 bg-black/20 z-40"
+     (click)="close()">
+</div>
+
+<!-- DRAWER -->
+<div *ngIf="isOpen"
+     class="fixed top-0 right-0 w-96 h-full bg-white shadow-2xl z-50 p-5 overflow-y-auto">
+
+  <h2 class="text-xl font-bold mb-4 border-b pb-2">
+    Your Cart 🛒
+  </h2>
+
+  <!-- EMPTY -->
+  <div *ngIf="items.length === 0" class="text-gray-500 text-sm">
+    Your cart is empty
+  </div>
+
+  <!-- ITEMS -->
+  <div *ngFor="let item of items"
+       class="flex gap-3 mb-4 border-b pb-3 hover:bg-gray-50 p-2 rounded">
+
+    <img [src]="item.image"
+         class="w-20 h-20 object-cover rounded border" />
+
+    <div class="flex-1">
+
+      <h4 class="text-sm font-medium line-clamp-2">
+        {{ item.name }}
+      </h4>
+
+      <p class="text-red-600 font-bold mt-1">
+        ₹{{ item.price }}
+      </p>
+
+      <p class="text-xs text-gray-500">
+        Qty: {{ item.quantity || 1 }}
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- TOTAL -->
+  <div class="mt-4 font-bold text-lg border-t pt-3">
+    Total: ₹{{ total() }}
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="mt-4 flex flex-col gap-2">
+
+    <button (click)="goToCart()"
+            class="border p-2 rounded hover:bg-gray-100 transition">
+      View Cart
+    </button>
+
+    <button (click)="checkout()"
+            class="bg-black text-white p-2 rounded hover:bg-gray-800 transition">
+      Checkout
+    </button>
+
+  </div>
+
+</div>

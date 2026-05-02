@@ -26,4 +26,12 @@ remove(productId: number) {
   this.productService.removeFromWishlist(productId)
     .subscribe(() => this.loadWishlist());
 }
+
+moveToCart(p: any) {
+  console.log('Move to cart:', p);
+
+  // future:
+  // 1. add to cart
+  // 2. remove from wishlist
+}
 }
